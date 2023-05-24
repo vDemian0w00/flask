@@ -1,7 +1,13 @@
-from app import App
+from flask import Flask, jsonify
+import os
 
-myapp = App()
+app = Flask(__name__)
 
-if (__name__ == '__main__'):
-    print('a')
-    myapp.createApp()
+
+@app.route('/')
+def index():
+    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
