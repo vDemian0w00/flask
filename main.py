@@ -1,12 +1,17 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import os
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
+@app.route('/api/test', methods=['POST'])
+def test():
+    if (request.is_json):
+        content = request.json
+        print(content)
+        return jsonify({"Choo Choo": content}), 200
+
+    return jsonify({'message': 'Peticion no valida'}), 400
 
 
 if __name__ == '__main__':
