@@ -3,6 +3,7 @@ from sklearn import svm
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import f1_score
+import numpy as np
 
 # Clasificacion
 
@@ -34,20 +35,21 @@ class ReviewContainer:
         self.reviews = reviews
 
     def get_dataSet(self):
-        return [f'{x.name} - {x.description}' for x in self.reviews]
+        return np.array([f'{x.name} - {x.description}' for x in self.reviews])
+      #
 
     def get_x(self, vectorizer):
         data_vector = vectorizer.transform(self.get_dataSet())
         return data_vector
 
     def get_y(self):
-        return [x.classification for x in self.reviews]
+        return np.array([x.classification for x in self.reviews])
 
 
-file_names = ['./data/classification/fre_imp.json', './data/classification/fre_pre.json', './data/classification/var_imp.json',
-              './data/classification/var_pre.json', './data/classification/hormiga.json', './data/classification/imprevistos.json']
-file_categories = [Classification_DG.FRE_IMP, Classification_DG.FRE_PRE, Classification_DG.VAR_IMP,
-                   Classification_DG.VAR_PRE, Classification_DG.HORMIGA, Classification_DG.IMPREVISTOS]
+file_names = np.array(['./data/classification/fre_imp.json', './data/classification/fre_pre.json', './data/classification/var_imp.json',
+                       './data/classification/var_pre.json', './data/classification/hormiga.json', './data/classification/imprevistos.json'])
+file_categories = np.array([Classification_DG.FRE_IMP, Classification_DG.FRE_PRE, Classification_DG.VAR_IMP,
+                            Classification_DG.VAR_PRE, Classification_DG.HORMIGA, Classification_DG.IMPREVISTOS])
 
 reviews = []
 for i in range(len(file_names)):
