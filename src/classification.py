@@ -72,9 +72,4 @@ def classificationExpense(gasto):
     test_set = [gasto]
     new_test = vectorizer.transform(test_set)
 
-    print(clf.predict(new_test))
-
-    # Performance
-    y_pred = clf.predict(test_x)
-    f1_score(test_y, y_pred, average=None)
-    print(clf.score(test_x, test_y))
+    return clf.predict(new_test)[0]
