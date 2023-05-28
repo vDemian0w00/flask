@@ -2,12 +2,14 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import os
 
+from src.classification import classificationExpense
+
 app = Flask(__name__)
 CORS(app)
 
 
 @app.route('/api/classification/freq', methods=['POST'])
-def clalssFreq():
+def classFreq():
     if (request.is_json):
         content = request.json
 
@@ -19,14 +21,9 @@ def clalssFreq():
         if (desc == ''):
             return jsonify({'message': 'La descripcion es obligatoria'}), 400
 
-        # aqui ya trabajas tu
-#
-#
-##
-#
-#
-#
-        classification = 'dia'
+        gasto_frecuente = nombre+" - "+desc
+
+        classification = classificationExpense(gasto_frecuente)
 
         return jsonify({"message": 'Clasificacion obtenida correctamente', 'classification': classification}), 200
 
@@ -39,23 +36,22 @@ def classDia():
         content = request.json
 
         nombre = content.get('diaName', '')
-        desc = content.get('diaDesc', '')
+        desc = content.get('diaDescription', '')
+
+        print({"content": content})
 
         if (nombre == ''):
             return jsonify({'message': 'El nombre es obligatorio'}), 400
         if (desc == ''):
             return jsonify({'message': 'La descripcion es obligatoria'}), 400
 
-        # aqui ya trabajas tu
-#
-#
-##
-#
-#
-#
-        classification = 'dia'
+        gasto_diario = nombre+" - "+desc
 
-        return jsonify({"message": 'Clasificacion obtenida correctamente', 'classification': classification}), 200
+        # Clasificación
+
+        classification = classificationExpense(gasto_diario)
+
+        return jsonify({"message": 'Clasificacion obtenida correctamente', 'classification': classification, 'gasto': gasto_diario}), 200
 
     return jsonify({'message': 'Peticion no valida'}), 400
 
