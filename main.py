@@ -23,10 +23,7 @@ def classFreq():
 
         gasto_frecuente = nombre+" - "+desc
 
-        # FUNCION QUE TRABAJA CON LOS DATOS
-        classificationExpense()
-
-        classification = 'dia'
+        classification = classificationExpense(gasto_frecuente)
 
         return jsonify({"message": 'Clasificacion obtenida correctamente', 'classification': classification}), 200
 
@@ -39,7 +36,9 @@ def classDia():
         content = request.json
 
         nombre = content.get('diaName', '')
-        desc = content.get('diaDesc', '')
+        desc = content.get('diaDescription', '')
+
+        print({"content": content})
 
         if (nombre == ''):
             return jsonify({'message': 'El nombre es obligatorio'}), 400
