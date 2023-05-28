@@ -7,8 +7,9 @@ from src.classification import classificationExpense
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route('/api/classification/freq', methods=['POST'])
-def clalssFreq():
+def classFreq():
     if (request.is_json):
         content = request.json
 
@@ -19,9 +20,9 @@ def clalssFreq():
             return jsonify({'message': 'El nombre es obligatorio'}), 400
         if (desc == ''):
             return jsonify({'message': 'La descripcion es obligatoria'}), 400
-        
-        gasto_frecuente=nombre+" - "+desc 
-        
+
+        gasto_frecuente = nombre+" - "+desc
+
         # FUNCION QUE TRABAJA CON LOS DATOS
         classificationExpense()
 
@@ -45,14 +46,13 @@ def classDia():
         if (desc == ''):
             return jsonify({'message': 'La descripcion es obligatoria'}), 400
 
-        gasto_diario=nombre+" - "+desc 
-        
-        # Clasificación
-        classificationExpense(gasto_diario)
-        
-        classification = 'dia'
+        gasto_diario = nombre+" - "+desc
 
-        return jsonify({"message": 'Clasificacion obtenida correctamente', 'classification': classification, 'gasto':gasto_diario}), 200
+        # Clasificación
+
+        classification = classificationExpense(gasto_diario)
+
+        return jsonify({"message": 'Clasificacion obtenida correctamente', 'classification': classification, 'gasto': gasto_diario}), 200
 
     return jsonify({'message': 'Peticion no valida'}), 400
 
