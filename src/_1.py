@@ -3,7 +3,7 @@ import time
 from classification import classificationExpense
 
 start = time.time()
-gasto = 'verduras-verduras para la semana'
+gasto = 'carne - carne de res'
 result = classificationExpense(gasto)
 end = time.time()
 print(result)
