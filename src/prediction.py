@@ -33,7 +33,7 @@ def predictionExpense(gastos):
     reg = xgb.XGBRegressor(base_score=0.5, booster='gbtree',
                             n_estimators=1000,
                             early_stopping_rounds=50,
-                            objective='reg:linear',
+                            objective='reg:squarederror',
                             max_depth=3,
                             learning_rate=0.01)
     reg.fit(X_train, y_train,
@@ -41,12 +41,6 @@ def predictionExpense(gastos):
             verbose=100)
 
     df['prediction'] = reg.predict(X_train)
-
-    ax = df[['gastos']].plot(figsize=(15, 5))
-    df['prediction'].tail(30).plot(ax=ax, marker='o', linestyle='-')  # Unir los puntos de las últimas 30 predicciones
-    plt.legend(['True Data', 'Predictions'])
-    ax.set_title('Raw Data and Prediction')
-    plt.show()
 
     last_30_predictions = df['prediction'].tail(30).tolist()
     return last_30_predictions
