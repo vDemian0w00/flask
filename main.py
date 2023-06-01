@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import numpy as np
 import os
 
 from src.classification import classificationExpense
+from src.prediction import predictionExpense
 
 app = Flask(__name__)
 CORS(app)
@@ -55,6 +57,25 @@ def classDia():
 
     return jsonify({'message': 'Peticion no valida'}), 400
 
+
+@app.route('/api/predictions', methods=['POST']) 
+def predictGasto():
+    if (request.is_json):
+        content = request.json
+
+        gastos = content.get('gastos', [])
+
+        print({"content": content})
+
+        if (gastos == []):
+            return jsonify({'message': 'Los gastos son obligatorios'}), 400
+
+        # Clasificación
+        prediction = predictionExpense(gastos)
+
+        return jsonify({"message": 'Predicción obtenida correctamente', 'prediction': prediction }), 200
+
+    return jsonify({'message': 'Peticion no valida'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000), host='0.0.0.0')

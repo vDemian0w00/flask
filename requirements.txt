@@ -5,12 +5,20 @@ gunicorn==20.0.4
 itsdangerous==1.1.0
 Jinja2==2.11.3
 joblib==1.2.0
+keras==2.12.0
 MarkupSafe==1.1.1
+matplotlib==3.7.1
 numpy==1.24.3
+pandas==2.0.1
 pip==22.3.1
+python-dateutil==2.8.2
+pytz==2023.3
 scikit-learn==1.2.2
 scipy==1.10.1
+seaborn==0.12.2
 setuptools==67.7.2
 six==1.16.0
+tensorflow ==2.12.0
 threadpoolctl==3.1.0
 Werkzeug==1.0.1
+xgboost==1.7.5

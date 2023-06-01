@@ -33,7 +33,6 @@ class ReviewContainer:
 
     def get_dataSet(self):
         return np.array([f'{x.name} - {x.description}' for x in self.reviews])
-      #
 
     def get_x(self, vectorizer):
         data_vector = vectorizer.transform(self.get_dataSet())
@@ -42,9 +41,8 @@ class ReviewContainer:
     def get_y(self):
         return np.array([x.classification for x in self.reviews])
 
-
 file_names = np.array(['./data/classification/fre_imp.json', './data/classification/fre_pre.json', './data/classification/var_imp.json',
-                       './data/classification/var_pre.json', './data/classification/hormiga.json', './data/classification/imprevistos.json'])
+                        './data/classification/var_pre.json', './data/classification/hormiga.json', './data/classification/imprevistos.json'])
 file_categories = np.array([Classification_DG.FRE_IMP, Classification_DG.FRE_PRE, Classification_DG.VAR_IMP,
                             Classification_DG.VAR_PRE, Classification_DG.HORMIGA, Classification_DG.IMPREVISTOS])
 
